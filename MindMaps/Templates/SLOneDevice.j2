@@ -1,2 +1,71 @@
 # {{ sl1 }}
 ## Name: {{ device.name }}
+### IP Address: {{ device.ip }}
+### Hostname: {{ device.hostname }}
+### Date Added: {{ device.date_added }}
+### Edit Date: {{ device.edit_date }}
+### Last Polled {{ device.last_poll }}
+### Active Alarms
+#### Unavailable: {{ device.active.unavailable }}
+#### Maintenance: {{ device.active.maintenance }}
+### Auto Update: {{ device.auto_update }}
+### Event Suppress: {{ device.event_suppress_mask }}
+### Auto Clear: {{ device.auto_clear }}
+### Log All: {{ device.log_all }}
+### Daily Port Scan: {{ device.daily_port_scan }}
+### Critical Ping: {{ device.critical_ping }}
+### Agent OS: {{ device.agent_os }}
+### Scan All IPs: {{ device.scan_all_ips }}
+### Preserve Hostname: {{ device.preserve_hostname }}
+### Interface Inventory Timeout: {{ device.interface_inventory_timeout }}
+### Maximum Inventory Timeout: {{ device.max_interface_inventory_count }}
+### Logs:
+{%- for result in logs %}
+#### Description: {{ result.description }}
+{%- endfor %}
+### Applications:
+{%- for app in apps %}
+#### Application Name: {{ app.description }}
+{%- endfor %}
+### Configurations:
+{%- for config in conf %}
+#### Name {{ conf[config].name }}
+#### Description {{ conf[config].data.description }}
+#### Created {{ conf[config].date_create }}
+#### State {{ conf[config].state }}
+{%- endfor %}
+### Available Vitals
+{%- for vital in vitals %}
+#### {{ vital }}
+{%- endfor %}
+### Interfaces
+{%- for interface in interfaces %}
+#### {{ interface.description }}
+{%- endfor %}
+### Thresholds
+#### Common
+##### Availability: {{ thresholds.common.avail }}
+##### Latency: {{ thresholds.common.latency }}
+##### Ping Count: {{ thresholds.common.avail_ping_count }}
+##### Ping Percentage: {{ thresholds.common.avail_ping_req_pct }}
+##### Ping Size: {{ thresholds.common.ping_packet_size }}
+##### Max Log: {{ thresholds.common.maxlog }}
+##### Log Age: {{ thresholds.common.logage }}
+##### Bandwidth: {{ thresholds.common.bandw }}
+##### Bandwidth Daily: {{ thresholds.common.bandw_daily }}
+##### Bandwidth Hourly: {{ thresholds.common.bandw_hourly }}
+##### Performance: {{ thresholds.common.perf }}
+##### Normal Performance: {{ thresholds.common.perf_norm }}
+##### Interface Inventory Timeout: {{ thresholds.common.interface_inventory_timeout }}
+#### Filesystem
+{%- for filesystem in thresholds.filesystem %}
+##### {{ filesystem }}
+###### Name: {{ thresholds.filesystem[filesystem].name }}
+###### Warning: {{ thresholds.filesystem[filesystem].warn }}
+###### Critical: {{ thresholds.filesystem[filesystem].crit }}
+{%- endfor%}
+### System Details
+#### Description: {{ details.snmp_data.sysdescr}}
+#### Uptime: {{ details.snmp_data.sysuptime}}
+#### Last Poll: {{ details.snmp_data.last_poll}}
+#### Location: {{ details.snmp_data.locale}}
